@@ -155,7 +155,6 @@ namespace test_dictionary
                     Console.Write(secResult);
                 }
             }
-            Console.ReadLine();
             return Input;
         }
         //function for numbers from 100 to 999
