@@ -14,6 +14,7 @@ namespace test_dictionary
             Console.WriteLine("Enter a number");
             //Reads in the user input for conversion
             string Input = Console.ReadLine();
+            
             Input = Convert.ToDouble(Input).ToString();
             int CInput = Convert.ToInt32(Input);
             //Creating a dictionary for integers from 1 to 19
@@ -39,7 +40,7 @@ namespace test_dictionary
             dictTens.Add(19, "Nineteen");
             //creating variables to store the result
             string result;
-            int leng = Input.Length;
+            
             //checking if the input falls between 1 to 19
             if (dictTens.ContainsKey(CInput) && dictTens.TryGetValue(CInput, out result))
             {
@@ -49,49 +50,8 @@ namespace test_dictionary
             }
             //runs the next part if the input is not equal to 0 
             else if (!dictTens.ContainsKey(CInput) && CInput != 0)
-            { 
-                switch (leng)
-                {
-                    case 1:
-                    case 2: // If the input is in the category of tens
-                        Tens(Input);
-
-                        break;
-                    case 3://Category of hundred
-                        Hundred(Input);
-                        break;
-                    case 4://Category of thousands
-                        string touS = Input.Substring(0, 1);
-                        string touF = Input.Substring(1, 3);
-                        Input = touS;
-                        newTens(Input);
-                        Input = touF;
-                        Hundred(Input);
-                        break;
-                    case 5://Category of thousand
-                        string secIn = Input.Substring(2);
-                        string firIn = Input.Substring(0, 2);
-                        Input = firIn;
-                        newTens(Input);
-                        Input = secIn;
-                        Hundred(Input);
-                        Console.ReadLine();
-                        break;
-                    case 6:
-                        secIn = Input.Substring(3);
-                        firIn = Input.Substring(0, 3);
-                        Input = firIn;
-                        Hundred(Input);
-                        Console.Write(" Thousand ");
-                        Input = secIn;
-                        Hundred(Input);
-                        Console.ReadLine();
-                        break;
-                    default:
-                        Console.WriteLine("Please input a valid number from 1 to 999,999");
-                        break;
-                }
-                
+            {
+                Call(Input);
                 Console.ReadLine();
             }else
             {
@@ -103,9 +63,100 @@ namespace test_dictionary
             }
             
         }
+        static String Call (String Input)
+        {
+            int leng = Input.Length;
+            bool isDone = false;
+            switch (leng)
+            {                
+                case 1:
+                    Dictionary<int, string> dictTens = new Dictionary<int, string>();
+                    dictTens.Add(1, "One");
+                    dictTens.Add(2, "Two");
+                    dictTens.Add(3, "Three");
+                    dictTens.Add(4, "Four");
+                    dictTens.Add(5, "Five");
+                    dictTens.Add(6, "Six");
+                    dictTens.Add(7, "Seven");
+                    dictTens.Add(8, "Eight");
+                    dictTens.Add(9, "Nine");
+                    dictTens.Add(10, "Ten");
+                    int CInput = Convert.ToInt32(Input);
+                    string result;
+                    //checking if the input falls between 1 to 19
+                    if (dictTens.ContainsKey(CInput) && dictTens.TryGetValue(CInput, out result))
+                    {
+                        //prints the output
+                        Console.WriteLine(result);
+                        Console.ReadLine();
+                    }
+                    break;
+                case 2: // If the input is in the category of tens
+                    Tens(Input);
+
+                    break;
+                case 3://Category of hundred
+                    Hundred(Input);
+                    break;
+                case 4://Category of thousands                    
+                    if (Input.StartsWith("0"))
+                    {
+                        Input = Input.Substring(1);
+                        Hundred(Input);
+                        isDone = true;
+                    }
+                    else if (Input.StartsWith("00"))
+                    {
+                        Input = Input.Substring(2);
+                        Tens(Input);
+                        isDone = true;
+                    }
+                    else if (Input.StartsWith("000"))
+                    {
+                        Input = Input.Substring(3);
+                        Tens(Input);
+                        isDone = true;
+                    }
+                    else if (isDone == false)
+                    {
+                        string touS = Input.Substring(0, 1);
+                        string touF = Input.Substring(1, 3);
+                        Input = touS;
+                        newTens(Input);
+                        Input = touF;
+                        Hundred(Input);
+                    }
+                    break;
+                case 5://Category of thousand
+                    string secIn = Input.Substring(2);
+                    string firIn = Input.Substring(0, 2);
+                    Input = firIn;
+                    newTens(Input);
+                    Input = secIn;
+                    Hundred(Input);
+                    Console.ReadLine();
+                    break;
+                case 6:
+                    secIn = Input.Substring(3);
+                    firIn = Input.Substring(0, 3);
+                    Input = firIn;
+                    Hundred(Input);
+                    Console.Write(" Thousand ");
+                    Input = secIn;
+                    Hundred(Input);
+                    Console.ReadLine();
+                    break;
+                default:
+                    Console.WriteLine("Please input a valid number from 1 to 999,999");
+                    break;
+                    
+            }
+            return Input;
+        }
         //function for numbers from 1 to 99
         static String Tens (String Input)
         {
+            bool isDone = false;
             //A dictionary 
             Dictionary<int, string> dictTens = new Dictionary<int, string>();
             dictTens.Add(1, "One");
@@ -137,22 +188,31 @@ namespace test_dictionary
             dictUnit.Add(70, "seventy");
             dictUnit.Add(80, "Eighty");
             dictUnit.Add(90, "Ninety");
-            string firstResult;
-            string secResult;
-            //adds zero as a string to the first sub string
-            string firstHalf = Input.Substring(0, 1) + "0";
-            int CfirstHalfs = Convert.ToInt32(firstHalf);
-            //saves the last sub string
-            string secHalf = Input.Substring(1);
-            int CsecHalf = Convert.ToInt32(secHalf);
-            // check if the input is in the dictionary created "unit"
-            if (dictUnit.ContainsKey(CfirstHalfs) && dictUnit.TryGetValue(CfirstHalfs, out firstResult))
+            if (Input.StartsWith("0"))
             {
-                Console.Write("{0} ", firstResult);
-                //checks if the input is the dictionary created "tens"
-                if (dictTens.ContainsKey(CsecHalf) && dictTens.TryGetValue(CsecHalf, out secResult))
+                Input = Input.Substring(1);
+                Call(Input);
+                isDone = true;
+            }
+            else if (isDone == false)
+            {
+                string firstResult;
+                string secResult;
+                //adds zero as a string to the first sub string
+                string firstHalf = Input.Substring(0, 1) + "0";
+                int CfirstHalfs = Convert.ToInt32(firstHalf);
+                //saves the last sub string
+                string secHalf = Input.Substring(1);
+                int CsecHalf = Convert.ToInt32(secHalf);
+                // check if the input is in the dictionary created "unit"
+                if (dictUnit.ContainsKey(CfirstHalfs) && dictUnit.TryGetValue(CfirstHalfs, out firstResult))
                 {
-                    Console.Write(secResult);
+                    Console.Write("{0} ", firstResult);
+                    //checks if the input is the dictionary created "tens"
+                    if (dictTens.ContainsKey(CsecHalf) && dictTens.TryGetValue(CsecHalf, out secResult))
+                    {
+                        Console.Write(secResult);
+                    }
                 }
             }
             return Input;
@@ -174,6 +234,16 @@ namespace test_dictionary
             string hunT = Input.Substring(0, 1) + "00";
             int ChunT = Convert.ToInt32(hunT);
             // check if the input is in the dictionary created
+            if (Input.StartsWith("0"))
+            {
+                Input = Input.Substring(1);
+                Tens(Input);
+            }
+            else if (Input.StartsWith("00"))
+            {
+                Input = Input.Substring(2);
+                Tens(Input);
+            }
             if (dictHund.ContainsKey(ChunT) && dictHund.TryGetValue(ChunT, out firstResult))
             {
                 Console.Write("{0} and ",firstResult);
@@ -186,6 +256,7 @@ namespace test_dictionary
         //duplicated function for numbers witin 1 to 19
         static String newTens (String Input)
         {
+            bool isDone = false;
             string firstResult;
             string touS = Input;
             int CtouS = Convert.ToInt32(touS);
@@ -210,9 +281,18 @@ namespace test_dictionary
             dictTens.Add(17, "Seventeen");
             dictTens.Add(18, "Eighteen");
             dictTens.Add(19, "Nineteen");
-            if (dictTens.ContainsKey(CtouS) && dictTens.TryGetValue(CtouS, out firstResult))
+            if (Input.StartsWith("0"))
             {
-                Console.Write("{0} Thousand ", firstResult);
+                Input = Input.Substring(1);
+                Call(Input);
+                isDone = true;
+            }
+            else if (isDone == false)
+            {
+                if (dictTens.ContainsKey(CtouS) && dictTens.TryGetValue(CtouS, out firstResult))
+                {
+                    Console.Write("{0} Thousand ", firstResult);
+                }
             }
             return Input;
         }
