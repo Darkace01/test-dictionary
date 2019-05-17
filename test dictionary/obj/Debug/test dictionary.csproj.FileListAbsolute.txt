@@ -1,0 +1,7 @@
+C:\Users\Kazeem Quadri\source\repos\test dictionary\test dictionary\obj\Debug\test dictionary.csprojAssemblyReference.cache
+C:\Users\Kazeem Quadri\source\repos\test dictionary\test dictionary\obj\Debug\test dictionary.csproj.CoreCompileInputs.cache
+C:\Users\Kazeem Quadri\source\repos\test dictionary\test dictionary\bin\Debug\test dictionary.exe.config
+C:\Users\Kazeem Quadri\source\repos\test dictionary\test dictionary\bin\Debug\test dictionary.exe
+C:\Users\Kazeem Quadri\source\repos\test dictionary\test dictionary\bin\Debug\test dictionary.pdb
+C:\Users\Kazeem Quadri\source\repos\test dictionary\test dictionary\obj\Debug\test dictionary.exe
+C:\Users\Kazeem Quadri\source\repos\test dictionary\test dictionary\obj\Debug\test dictionary.pdb
