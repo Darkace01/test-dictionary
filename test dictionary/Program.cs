@@ -10,58 +10,75 @@ namespace test_dictionary
     {
         static void Main(string[] args)
         {
-            //Request for the input
-            Console.WriteLine("Enter a number");
-            //Reads in the user input for conversion
-            string Input = Console.ReadLine();
-            
-            Input = Convert.ToDouble(Input).ToString();
-            int CInput = Convert.ToInt32(Input);
-            //Creating a dictionary for integers from 1 to 19
-            Dictionary<int, string> dictTens = new Dictionary<int, string>();
-            dictTens.Add(1, "One");
-            dictTens.Add(2, "Two");
-            dictTens.Add(3, "Three");
-            dictTens.Add(4, "Four");
-            dictTens.Add(5, "Five");
-            dictTens.Add(6, "Six");
-            dictTens.Add(7, "Seven");
-            dictTens.Add(8, "Eight");
-            dictTens.Add(9, "Nine");
-            dictTens.Add(10, "Ten");
-            dictTens.Add(11, "Eleven");
-            dictTens.Add(12, "Twelve");
-            dictTens.Add(13, "Thirteen");
-            dictTens.Add(14, "Fourteen");
-            dictTens.Add(15, "Fifteen");
-            dictTens.Add(16, "Sixteen");
-            dictTens.Add(17, "Seventeen");
-            dictTens.Add(18, "Eighteen");
-            dictTens.Add(19, "Nineteen");
-            //creating variables to store the result
-            string result;
-            
-            //checking if the input falls between 1 to 19
-            if (dictTens.ContainsKey(CInput) && dictTens.TryGetValue(CInput, out result))
-            {
-                //prints the output
-                Console.WriteLine(result);
-                Console.ReadLine();
+            bool reStart = true;
+            if (reStart == true) {
+                //Request for the input
+                Console.WriteLine("Enter a number");
+                //Reads in the user input for conversion
+                string Input = Console.ReadLine();
+
+                Input = Convert.ToDouble(Input).ToString();
+                int CInput = Convert.ToInt32(Input);
+                //Creating a dictionary for integers from 1 to 19
+                Dictionary<int, string> dictTens = new Dictionary<int, string>();
+                dictTens.Add(1, "One");
+                dictTens.Add(2, "Two");
+                dictTens.Add(3, "Three");
+                dictTens.Add(4, "Four");
+                dictTens.Add(5, "Five");
+                dictTens.Add(6, "Six");
+                dictTens.Add(7, "Seven");
+                dictTens.Add(8, "Eight");
+                dictTens.Add(9, "Nine");
+                dictTens.Add(10, "Ten");
+                dictTens.Add(11, "Eleven");
+                dictTens.Add(12, "Twelve");
+                dictTens.Add(13, "Thirteen");
+                dictTens.Add(14, "Fourteen");
+                dictTens.Add(15, "Fifteen");
+                dictTens.Add(16, "Sixteen");
+                dictTens.Add(17, "Seventeen");
+                dictTens.Add(18, "Eighteen");
+                dictTens.Add(19, "Nineteen");
+                //creating variables to store the result
+                string result;
+
+                //checking if the input falls between 1 to 19
+                if (dictTens.ContainsKey(CInput) && dictTens.TryGetValue(CInput, out result))
+                {
+                    //prints the output
+                    Console.WriteLine(result);
+                    Console.ReadLine();
+                }
+                //runs the next part if the input is not equal to 0 
+                else if (!dictTens.ContainsKey(CInput) && CInput != 0)
+                {
+                    Call(Input);
+                    Console.ReadLine();
+                } else
+                {
+                    //Output incase the user inputs any
+                    Console.WriteLine("Zero");
+                    Console.WriteLine("------------------------------------------");
+                    Console.WriteLine("Please refresh and input a number, not zero please.");
+                    Console.ReadLine();
+                }
+                Console.WriteLine("Do you want to start the code");
+                Console.WriteLine("==============================");
+                Console.WriteLine("y / n");
+                string answer = Console.ReadLine();
+                if (answer == "y")
+                {
+                    reStart = true;
+                    Main(null);
+                }
+                else
+                    reStart = false;
+                Console.WriteLine("Bye ");
+                Console.WriteLine("============");
+                Console.WriteLine("Close Me");
+                Console.Read();
             }
-            //runs the next part if the input is not equal to 0 
-            else if (!dictTens.ContainsKey(CInput) && CInput != 0)
-            {
-                Call(Input);
-                Console.ReadLine();
-            }else
-            {
-                //Output incase the user inputs any
-                Console.WriteLine("Zero");
-                Console.WriteLine("------------------------------------------");
-                Console.WriteLine("Please refresh and input a number, not zero please.");
-                Console.ReadLine();
-            }
-            
         }
         static String Call (String Input)
         {
