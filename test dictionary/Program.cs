@@ -65,14 +65,14 @@ namespace test_dictionary
                 }
                 Console.WriteLine("Do you want to start the code");
                 Console.WriteLine("==============================");
-                Console.WriteLine("y / n");
+                Console.WriteLine("Created By: </ [.^.] />");
                 string answer = Console.ReadLine();
-                if (answer == "y")
+                if (!answer.Contains("-"))
                 {
                     reStart = true;
                     Main(null);
                 }
-                else
+                else if(answer.Contains("-"))
                     reStart = false;
                 Console.WriteLine("Bye ");
                 Console.WriteLine("============");
@@ -136,13 +136,26 @@ namespace test_dictionary
                     }
                     else if (isDone == false)
                     {
-                        string touS = Input.Substring(0, 1);
-                        string touF = Input.Substring(1, 3);
-                        Input = touS;
-                        newTens(Input);
-                        Input = touF;
-                        Hundred(Input);
-                    }
+                        if (Input.Substring(1, 2) != "00")
+                        {
+                            string touS = Input.Substring(0, 1);
+                            string touF = Input.Substring(1, 3);
+                            Input = touS;
+                            newTens(Input);
+                            Input = touF;
+                            Hundred(Input);
+                        }
+                        if (Input.Substring(1, 2) == "00")
+                        {
+                            string touS = Input.Substring(0, 1);
+                            string touF = Input.Substring(1, 3);
+                            Input = touS;
+                            newTens(Input);
+                            Console.Write("and ");
+                            Input = touF;
+                            Hundred(Input);
+                        }
+                        }
                     break;
                 case 5://Category of thousand
                     string secIn = Input.Substring(2);
@@ -305,12 +318,11 @@ namespace test_dictionary
                 isDone = true;
             }
             else if (isDone == false)
-            {
-                if (dictTens.ContainsKey(CtouS) && dictTens.TryGetValue(CtouS, out firstResult))
-                {
-                    Console.Write("{0} Thousand ", firstResult);
-                }
-            }
+                            if (dictTens.ContainsKey(CtouS) && dictTens.TryGetValue(CtouS, out firstResult))
+                            {
+                                Console.Write("{0} Thousand ", firstResult);
+
+                            }
             return Input;
         }
     }
